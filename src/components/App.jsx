@@ -1,3 +1,9 @@
+import Test from './Test/Test';
+
 export const App = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Test />
+    </div>
+  );
 };
