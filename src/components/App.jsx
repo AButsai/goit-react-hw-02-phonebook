@@ -1,9 +1,89 @@
 import React, { Component } from 'react';
 
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
+import Filter from './Filter';
+
+import s from './App.module.css';
+
 export class App extends Component {
-  state = {};
+  state = {
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
+  };
+
+  onSubmit = data => {
+    const contacts = [...this.state.contacts];
+
+    for (const { name } of contacts) {
+      if (name === data.name) {
+        alert(`${name} is already in contacts.`);
+        return;
+      }
+    }
+
+    contacts.push(data);
+    this.setState({ contacts: contacts });
+  };
+
+  // Массив для отфильтрованных контактов
+  filterContacts = [];
+
+  handleFilterName = e => {
+    if (e.currentTarget.value === '') {
+      this.setState({ filter: '' });
+      this.filterContacts = [];
+      return;
+    }
+
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+
+    this.filterContacts = [...this.state.contacts].filter(
+      ({ name }) => name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    );
+  };
+
+  onDeleteContact = e => {
+    const contactId = e.currentTarget.id;
+
+    this.filterContacts = [...this.filterContacts].filter(
+      ({ id }) => id !== contactId
+    );
+    this.setState({ filter: '' });
+
+    const contacts = [...this.state.contacts].filter(
+      ({ id }) => id !== contactId
+    );
+
+    this.setState({ contacts: contacts });
+  };
 
   render() {
-    return <></>;
+    return (
+      <div className={s.container}>
+        <h1 className={s.title}>Phonebook</h1>
+
+        <ContactForm addContacts={this.onSubmit} />
+
+        <h2 className={s.contactsTitle}>Contacts</h2>
+
+        <Filter
+          value={this.state.filter}
+          onFilterName={this.handleFilterName}
+        />
+
+        <ContactList
+          contacts={this.state.contacts}
+          filterContact={this.filterContacts}
+          deleteContact={this.onDeleteContact}
+        />
+      </div>
+    );
   }
 }
