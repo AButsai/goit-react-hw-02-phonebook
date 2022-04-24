@@ -29,7 +29,7 @@ export class App extends Component {
   // Массив для отфильтрованных контактов
   filterContacts = [];
 
-  handleFilterName = e => {
+  onFilterName = e => {
     if (e.currentTarget.value === '') {
       this.setState({ filter: '' });
       this.filterContacts = [];
@@ -68,10 +68,7 @@ export class App extends Component {
 
         <h2 className={s.contactsTitle}>Contacts</h2>
 
-        <Filter
-          value={this.state.filter}
-          onFilterName={this.handleFilterName}
-        />
+        <Filter value={this.state.filter} onFilterName={this.onFilterName} />
 
         <ContactList
           contacts={this.state.contacts}
