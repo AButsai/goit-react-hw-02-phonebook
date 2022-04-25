@@ -10,7 +10,13 @@ const ContactListItem = props => {
       <span className={s.span}>
         {name}: {number}
       </span>
-      <button id={id} className={s.btn} onClick={deleteContact} type="button">
+      <button
+        className={s.btn}
+        onClick={() => {
+          deleteContact(id);
+        }}
+        type="button"
+      >
         Delete
       </button>
     </li>

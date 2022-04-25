@@ -48,9 +48,7 @@ export class App extends Component {
     return [...data].filter(({ id }) => id !== contactId);
   };
 
-  onDeleteContact = e => {
-    const contactId = e.currentTarget.id;
-
+  onDeleteContact = contactId => {
     this.filterContacts = this.arrayIteration(this.filterContacts, contactId);
     this.setState({ filter: '' });
 
