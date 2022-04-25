@@ -52,6 +52,7 @@ export class App extends Component {
     const contactId = e.currentTarget.id;
 
     this.filterContacts = this.arrayIteration(this.filterContacts, contactId);
+    this.setState({ filter: '' });
 
     const contacts = this.arrayIteration(this.state.contacts, contactId);
 
