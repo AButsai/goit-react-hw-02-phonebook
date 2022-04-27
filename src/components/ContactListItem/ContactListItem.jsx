@@ -15,6 +15,12 @@ const ContactListItem = props => {
         onClick={() => {
           deleteContact(id);
         }}
+        onMouseDown={e => {
+          e.target.style.backgroundColor = '#0a95ff';
+        }}
+        onMouseUp={e => {
+          e.target.style.backgroundColor = 'transparent';
+        }}
         type="button"
       >
         Delete
